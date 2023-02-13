@@ -6,64 +6,112 @@
     <title>Document</title>
 
     <style>
-        #sidebar {
+     #left-sidebar, #right-sidebar {
   position: fixed;
   top: 0;
-  left: 0;
   bottom: 0;
   width: 0;
-  background-color: #333;
+  background-color:#5d428b9c;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: 0.8s;
 }
 
+#left-sidebar {
+  left: 0;
+}
+
+#right-sidebar {
+  right: 0;
+}
+
+
+    
     </style>
 </head>
 <body>
 
-    <div id="sidebar">
-        <!-- Sidebar content goes here -->
+    <div id="left-sidebar">
+        <!-- Left Sidebar content goes here -->
       </div>
+      
+      <div id="right-sidebar">
+        <!-- Right Sidebar content goes here -->
+      </div>
+      
       
     
 </body>
 </html>
 
 <script>
-var sidebar = document.getElementById("sidebar");
-var open = false;
+
+
+// var leftSidebar = document.getElementById("left-sidebar");
+// var rightSidebar = document.getElementById("right-sidebar");
+// var activeSidebar = null;
+// var startX;
+
+// document.addEventListener("touchstart", function(event) {
+//   startX = event.touches[0].clientX;
+// });
+
+// document.addEventListener("touchend", function(event) {
+//   var endX = event.changedTouches[0].clientX;
+//   if (startX > endX) {
+//     if (activeSidebar === rightSidebar) return;
+//     closeActiveSidebar();
+//     rightSidebar.style.width = "250px";
+//     activeSidebar = rightSidebar;
+//   } else {
+//     if (activeSidebar === leftSidebar) return;
+//     closeActiveSidebar();
+//     leftSidebar.style.width = "250px";
+//     activeSidebar = leftSidebar;
+//   }
+// });
+
+// function closeActiveSidebar() {
+//   if (activeSidebar) {
+//     activeSidebar.style.width = "0";
+//   }
+// }
+
+var leftSidebar = document.getElementById("left-sidebar");
+var rightSidebar = document.getElementById("right-sidebar");
+var activeSidebar = null;
 var startX;
-
-document.addEventListener("mousedown", function(event) {
-  startX = event.clientX;
-});
-
-document.addEventListener("mouseup", function(event) {
-  var endX = event.clientX;
-  if (startX < endX) {
-    sidebar.style.width = "250px";
-    open = true;
-  } else {
-    sidebar.style.width = "0";
-    open = false;
-  }
-});
-
+var closing = false;
 
 document.addEventListener("touchstart", function(event) {
-  startX = event.touches[0].clientX;
+  if (!closing && !activeSidebar) {
+    startX = event.touches[0].clientX;
+  } else {
+    closeActiveSidebar();
+  }
 });
 
 document.addEventListener("touchend", function(event) {
-  var endX = event.changedTouches[0].clientX;
-  if (startX < endX) {
-    sidebar.style.width = "250px";
-    open = true;
-  } else {
-    sidebar.style.width = "0";
-    open = false;
+  if (!closing && !activeSidebar) {
+    var endX = event.changedTouches[0].clientX;
+    if (startX > endX) {
+      rightSidebar.style.width = "250px";
+      activeSidebar = rightSidebar;
+    } else {
+      leftSidebar.style.width = "250px";
+      activeSidebar = leftSidebar;
+    }
   }
 });
+
+function closeActiveSidebar() {
+  closing = true;
+  activeSidebar.style.width = "0";
+  setTimeout(function() {
+    activeSidebar = null;
+    closing = false;
+  }, 500);
+}
+
 
 
 
