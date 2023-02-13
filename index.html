@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  background-color: #333;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <!-- Sidebar content goes here -->
+      </div>
+      
+    
+</body>
+</html>
+
+<script>
+var sidebar = document.getElementById("sidebar");
+var open = false;
+var startX;
+
+document.addEventListener("mousedown", function(event) {
+  startX = event.clientX;
+});
+
+document.addEventListener("mouseup", function(event) {
+  var endX = event.clientX;
+  if (startX < endX) {
+    sidebar.style.width = "250px";
+    open = true;
+  } else {
+    sidebar.style.width = "0";
+    open = false;
+  }
+});
+
+
+document.addEventListener("touchstart", function(event) {
+  startX = event.touches[0].clientX;
+});
+
+document.addEventListener("touchend", function(event) {
+  var endX = event.changedTouches[0].clientX;
+  if (startX < endX) {
+    sidebar.style.width = "250px";
+    open = true;
+  } else {
+    sidebar.style.width = "0";
+    open = false;
+  }
+});
+
+
+
+
+
+
+</script>
